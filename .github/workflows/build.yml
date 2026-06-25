@@ -23,17 +23,17 @@ jobs:
           mkdir -p $ANDROID_HOME/licenses
           echo -e "\n2e65d327a6d59f28d753c55c8716488b7da4d292\n8933bad161af4178b1185d1a37fbf41ea5269c55\n25e661014047467ee50d2d83256079be7843d1f5\n84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f291d\n351325c33f410715df125136003ae3e3511403c2" > $ANDROID_HOME/licenses/android-sdk-license
 
-      - name: Install Dependencies
+      - name: Install Base Dependencies
         run: |
           pip install flet telethon apscheduler sqlalchemy
 
-      - name: Build APK
+      - name: Build APK with Core Packages
         env:
           CI: true
           FLET_NON_INTERACTIVE: true
           FLUTTER_SUPPRESS_ANALYTICS: true
         run: |
-          flet build apk
+          flet build apk --pip-requirement="telethon apscheduler sqlalchemy"
           
       - name: Upload APK
         uses: actions/upload-artifact@v4
