@@ -28,8 +28,12 @@ jobs:
           pip install flet telethon apscheduler sqlalchemy
 
       - name: Build APK
+        env:
+          CI: true
+          FLET_NON_INTERACTIVE: true
+          FLUTTER_SUPPRESS_ANALYTICS: true
         run: |
-          echo "y" | flet build apk
+          flet build apk
           
       - name: Upload APK
         uses: actions/upload-artifact@v4
